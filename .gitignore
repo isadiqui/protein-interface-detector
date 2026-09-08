@@ -1,0 +1,43 @@
+# Environnement virtuel
+venv/
+.venv/
+env/
+
+Python
+
+pycache/
+*.py[cod]
+*.pyo
+
+Jupyter Notebook
+
+.ipynb_checkpoints/
+
+Variables d'environnement / secrets
+
+.env
+.env.*
+
+Fichiers système
+
+.DS_Store
+Thumbs.db
+
+VS Code
+
+.vscode/
+
+Fichiers temporaires
+
+*.log
+*.tmp
+
+Builds / distributions
+
+build/
+dist/
+.egg-info/
+results/.csv
+results/*.pml
+*.csv
+*.pml
