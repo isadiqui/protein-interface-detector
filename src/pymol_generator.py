@@ -1,9 +1,34 @@
 #-*- coding: utf-8 -*-
+"""
+PyMOL script generator module.
 
+This module provides automated generation of PyMOL visualization files,
+enabling immediate 3D representation of molecular interactions at the interface.
+
+"""
 import os
 
 def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
-    """ PyMOL script """
+    """ 
+    Generates a customized PyMOL script to visualize detected interactions.
+
+    Writes command lines to load the PDB structure, color the respective chains, 
+    display interface residues as sticks and represent each chemical interaction 
+    using specific dashed line coloring schemes.
+
+    Args:
+        filepath (str): Path where the output PyMOL script will be saved.
+        pdb_path (str): Path to the source PDB file being analyzed.
+        chain_A_id (str): Chain ID of the receptor protein.
+        chain_B_id (str): Chain ID of the binding partner.
+        matches (list of dict): List of detected interaction dictionaries. Each 
+        dictionary must contain keys like 'res_A_id', 'res_B_id', 'atom_A_name', 
+        'atom_B_name', 'type', and 'distance'.
+
+    Returns : 
+        None
+        
+    """
 
     with open(filepath, 'w') as f:
         f.write(f"load {os.path.basename(pdb_path)}\n")
