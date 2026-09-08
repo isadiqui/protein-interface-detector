@@ -1,0 +1,57 @@
+#-*- coding: utf-8 -*-
+
+import os
+
+def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
+    """ PyMOL script """
+
+    with open(filepath, 'w') as f:
+        f.write(f"load {os.path.basename(pdb_path)}\n")
+        f.write("hide everything\n")
+        f.write("show cartoon\n")
+        f.write(f"color blue, chain {chain_A_id}\n")
+        f.write(f"color red, chain {chain_B_id}\n\n")
+
+        # Color interface residues
+        f.write("#select and show interface residues\n")
+        res_A_list = "+".join(sorted(list({str(m['res_A_id']) for m in matches})))
+        res_B_list = "+".join(sorted(list({str(m['res_B_id']) for m in matches})))
+
+        if res_A_list:
+            f.write(f"select interface_A, chain {chain_A_id} and resi {res_A_list}\n")
+            f.write("color lightblue, interface_A\n")
+            f.write("show sticks, interface_A\n")
+        if res_B_list:
+            f.write(f"select interface_B, chain {chain_B_id} and resi {res_B_list}\n")
+            f.write("color lightorange, interface_B\n")
+            f.write("show sticks, interface_B\n")
+
+        f.write("\n# Chemical interactions as dashed lines\n")
+        f.write("set dash_color, yellow\n")
+
+        counts = {"Hydrophobic": 0, "Salt bridge": 0, "Hydrogen bond": 0, "Pi-Pi stacking": 0}
+        for i, m in enumerate(matches):
+            itype = m['type']
+            counts[itype] = counts.get(itype, 0) + 1
+            idx = counts[itype]
+
+            # Select atoms for line visualisation
+            atom_A_sel = f"(chain {chain_A_id} and resi {m['res_A_id']} and name {m['atom_A_name']})"
+            atom_B_sel = f"(chain {chain_B_id} and resi {m['res_B_id']} and name {m['atom_B_name']})"
+
+            # Different colors for different bond types
+            color_map = {
+                "Hydrophobic": "forest",
+                "Salt bridge": "red", 
+                "Hydrogen bond": "cyan", 
+                "Pi-Pi stacking": "magenta"
+            }
+            color = color_map.get(itype, "grey")
+
+            dist_name = f"dist_{itype.lower().replace(' ', '_')}_{idx}"
+            f.write(f"distance {dist_name}, {atom_A_sel}, {atom_B_sel}\n")
+            f.write(f"color {color}, {dist_name}\n")
+
+        f.write("\nutil.cbc\n")
+        f.write("deselect\n")
+        print(f"PyMOL script generated: {filepath}")
