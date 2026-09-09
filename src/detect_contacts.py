@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+Detection and Classification of Protein Interface Contacts.
 
+This script coordinates the parsing of PDB files, executes distance-based search
+algorithms, filters and classifies non-covalent interactions( hydrophobic, ionic,
+hydrogen bonds, pi-pi stacking) at the interface of 2 chains, exports
+results to CSV reports and PyMOL visualization scripts.
+
+"""
 import os
 import sys
 import csv
@@ -25,7 +33,18 @@ from pymol_generator import write_pymol_script
 
 
 def main():
-    # CLI configuration
+    """
+    Main execution function for the analysis pipeline.
+
+    Configures command-line arguments, parses structural coordinates, identifies
+    all atomic paires matching distance thresholds, filters specific chemical forces
+    and handles the production of text console reports, CSV outputs and PyMOL visualization.
+
+    Raises:
+        SystemExit: If the PDB file does not exist, structural parsing fails or
+        the specified chains are absent from the structure.
+
+    """
     parser = argparse.ArgumentParser(
         description="Protein Interface Contact Finder",
         formatter_class=argparse.RawTextHelpFormatter
@@ -35,9 +54,9 @@ def main():
     parser.add_argument("-b", "--chainB", default="B", help="ID of chain B (default: 'B')")
     parser.add_argument("-t", "--threshold", type=float, default=6.0,
                         help="Global interface distance threshold in Angstroms (default: 6.0 A)")
-    parser.add_argument("-o", "--output", default="contacts_output.csv",
+    parser.add_argument("-o", "--output", default="results/contacts_output.csv",
                         help="Filename for CSV output (default: 'contacts_output.csv')")
-    parser.add_argument("-p", "--pymol", default="contacts.pml",
+    parser.add_argument("-p", "--pymol", default="results/contacts.pml",
                         help="Filename for the Pymol script (default: 'contacts.pml')")
     args = parser.parse_args()
 
@@ -49,6 +68,7 @@ def main():
     print(f"Structure file: {args.pdb_file}")
     print(f"Analyzing chain {args.chainA} and chain {args.chainB}")
     print(f"Cutoff: {args.threshold}")
+    print("\n")
 
     # Parsing and cleaning
     try:
@@ -74,6 +94,7 @@ def main():
 
     print(f"Chain {args.chainA} clean heavy atoms: {len(atoms_A)}")
     print(f"Chain {args.chainB} clean heavy atoms: {len(atoms_B)}")
+    print("\n")
 
     # Detecting general contacts
     contacts = []
@@ -85,9 +106,9 @@ def main():
             if dist <= args.threshold:
                 contacts.append((atom_A, atom_B, dist))
     print(f"Detected {len(contacts)} raw heavy atom contacts under {args.threshold} Å")
+    print("\n")
 
     # Filtering and characterizing biochemical interactions
-
     matches = []
 
     # Hydrophobic interactions
@@ -184,13 +205,24 @@ def main():
                 })
 
     # Summary 
-    print(f"Hydrophobic contacts: {len(hydrophobic_contacts)}")
-    print(f"Salt bridges: {len(salt_bridges)}")
-    print(f"Hydrogen bonds: {len(h_bonds)}")
+    print("      SUMMARY OF DETECTED CONTACTS")
+    print(f"Hydrophobic contacts   : {len(hydrophobic_contacts)}")
+    print(f"Salt bridges           : {len(salt_bridges)}")
+    print(f"Hydrogen bonds         : {len(h_bonds)}")
     print(f"Pi-Pi stacking contacts: {len(aromatic_contacts)}")
+    print("\n")
+
+    if matches:
+        print("\n DETAILS:")
+        for m in matches:
+            print(f" [{m['type']}] {m['res_A_name']}{m['res_A_id']} ({args.chainA}) <->"
+                  f"{m['res_B_name']}{m['res_B_id']} ({args.chainB}) | Distance: {m['distance']:.2f} Å")
+    print("\n")  
 
     # Exports
     # Generate CSV
+    if os.path.dirname(args.output):
+        os.makedirs(os.path.dirname(args.output), exist_ok=True)
     try: 
         with open(args.output, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
@@ -208,8 +240,6 @@ def main():
 
     #PyMOL script
     write_pymol_script(args.pymol, args.pdb_file, args.chainA, args.chainB, matches)
-
-
 
 if __name__ == "__main__":
     main()
