@@ -234,7 +234,7 @@ def main():
             writer = csv.writer(f)
             writer.writerow(["Chain_A_Resname", "Chain_A_ResID", "Chain_A_Atom",
                              "Chain_B_Resname", "Chain_B_ResID", "Chain_B_Atom",
-                             "Interaction_Type", "Distance_Angstrom", "Details"])
+                             "Interaction_Type", "Distance_Angstrom"])
             for m in matches:
                 writer.writerow([m['res_A_name'], m["res_A_id"], m['atom_A_name'],
                                  m['res_B_name'], m["res_B_id"], m['atom_B_name'],
