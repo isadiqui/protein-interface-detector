@@ -27,11 +27,12 @@ def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
 
     Returns : 
         None
-        
+
     """
 
     with open(filepath, 'w') as f:
-        f.write(f"load {os.path.basename(pdb_path)}\n")
+        abs_pdb_path = os.path.abspath(pdb_path).replace("\\", "/")
+        f.write(f"load {abs_pdb_path}\n")
         f.write("hide everything\n")
         f.write("show cartoon\n")
         f.write(f"color blue, chain {chain_A_id}\n")
@@ -51,8 +52,8 @@ def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
             f.write("color lightorange, interface_B\n")
             f.write("show sticks, interface_B\n")
 
-        f.write("\n# Chemical interactions as dashed lines\n")
-        f.write("set dash_color, yellow\n")
+        # f.write("\n# Chemical interactions as dashed lines\n")
+        # f.write("set dash_color, yellow\n")
 
         counts = {"Hydrophobic": 0, "Salt bridge": 0, "Hydrogen bond": 0, "Pi-Pi stacking": 0}
         for i, m in enumerate(matches):
@@ -77,6 +78,6 @@ def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
             f.write(f"distance {dist_name}, {atom_A_sel}, {atom_B_sel}\n")
             f.write(f"color {color}, {dist_name}\n")
 
-        f.write("\nutil.cbc\n")
+        f.write("\nutil.cnc\n")
         f.write("deselect\n")
         print(f"PyMOL script generated: {filepath}")

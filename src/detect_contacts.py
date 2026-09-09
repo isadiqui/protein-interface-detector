@@ -221,8 +221,14 @@ def main():
 
     # Exports
     # Generate CSV
-    if os.path.dirname(args.output):
+    output_dir = os.path.dirname(args.output)
+    if output_dir:
         os.makedirs(os.path.dirname(args.output), exist_ok=True)
+
+    pymol_dir = os.path.dirname(args.pymol)
+    if pymol_dir:
+        os.makedirs(pymol_dir, exist_ok=True)
+
     try: 
         with open(args.output, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
