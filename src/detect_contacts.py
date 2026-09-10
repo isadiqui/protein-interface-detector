@@ -215,8 +215,11 @@ def main():
     if matches:
         print("\n DETAILS:")
         for m in matches:
-            print(f" [{m['type']}] {m['res_A_name']}{m['res_A_id']} ({args.chainA}) <->"
-                  f"{m['res_B_name']}{m['res_B_id']} ({args.chainB}) | Distance: {m['distance']:.2f} Å")
+            res_atom_A = f"{m['res_A_name']}{m['res_A_id']} {m['atom_A_name']}"
+            res_atom_B = f"{m['res_B_name']}{m['res_B_id']} {m['atom_B_name']}"
+            itype = f"[{m['type']}]"
+
+            print(f" {itype:<16} {res_atom_A:<14} [{args.chainA}]   <-->   {res_atom_B:<14} [{args.chainB}] | Distance: {m['distance']:>5.2f} Å")
     print("\n")  
 
     # Exports

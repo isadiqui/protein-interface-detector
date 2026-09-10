@@ -32,6 +32,11 @@ def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
 
     with open(filepath, 'w') as f:
         abs_pdb_path = os.path.abspath(pdb_path).replace("\\", "/")
+        if abs_pdb_path.startswith("/mnt/"):
+            parts = abs_pdb_path.split("/")
+            drive_letter = parts[2].upper()
+            abs_pdb_path = f"{drive_letter}:/" + "/".join(parts[3:])
+
         f.write(f"load {abs_pdb_path}\n")
         f.write("hide everything\n")
         f.write("show cartoon\n")
@@ -52,9 +57,7 @@ def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
             f.write("color lightorange, interface_B\n")
             f.write("show sticks, interface_B\n")
 
-        # f.write("\n# Chemical interactions as dashed lines\n")
-        # f.write("set dash_color, yellow\n")
-
+    
         counts = {"Hydrophobic": 0, "Salt bridge": 0, "Hydrogen bond": 0, "Pi-Pi stacking": 0}
         for i, m in enumerate(matches):
             itype = m['type']
@@ -77,6 +80,7 @@ def write_pymol_script(filepath, pdb_path, chain_A_id, chain_B_id, matches):
             dist_name = f"dist_{itype.lower().replace(' ', '_')}_{idx}"
             f.write(f"distance {dist_name}, {atom_A_sel}, {atom_B_sel}\n")
             f.write(f"color {color}, {dist_name}\n")
+            f.write(f"set dash_color, {color}, {dist_name}\n")
 
         f.write("\nutil.cnc\n")
         f.write("deselect\n")
