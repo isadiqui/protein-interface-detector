@@ -37,7 +37,3 @@ Builds / distributions
 build/
 dist/
 .egg-info/
-results/.csv
-results/*.pml
-*.csv
-*.pml
