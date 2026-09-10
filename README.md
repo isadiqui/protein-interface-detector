@@ -6,9 +6,9 @@ A Python command-line tool to analyze, characterize, and visualize non-covalent 
 
 This project provides an automated pipeline to clean PDB structural data and classify four major types of inter-chain non-covalent interactions:
 * **Hydrophobic Contacts:** Carbon-carbon side-chain contacts $\le 4.0\$ Å.
-* **Salt Bridges:** Electrostatic contacts $\le 4.0\text{ \AA}$ between cationic nitrogens (Arg, Lys, His) and acidic oxygen anions (Asp, Glu).
-* **Hydrogen Bonds:** Nitrogen-oxygen contacts $\le 3.5\text{ \AA}$ validated by an antecedent angle criterion ($\theta > 90.0^\circ$).
-* **Pi-Pi Stacking:** Aromatic ring center contacts $\le 6.0\text{ \AA}$ (Phe, Tyr, Trp) categorized into parallel, T-shaped, or displaced geometry.
+* **Salt Bridges:** Electrostatic contacts $\le 4.0\ Å$ between cationic nitrogens (Arg, Lys, His) and acidic oxygen anions (Asp, Glu).
+* **Hydrogen Bonds:** Nitrogen-oxygen contacts $\le 3.5\ Å$ validated by an antecedent angle criterion ($\theta > 90.0^\circ$).
+* **Pi-Pi Stacking:** Aromatic ring center contacts $\le 6.0\ Å$ (Phe, Tyr, Trp) categorized into parallel, T-shaped, or displaced geometry.
 
 ## Install
 
