@@ -1,0 +1,49 @@
+Chain_A_Resname,Chain_A_ResID,Chain_A_Atom,Chain_B_Resname,Chain_B_ResID,Chain_B_Atom,Interaction_Type,Distance_Angstrom
+PHE,104,CB,LEU,70,CD1,Hydrophobic,3.6
+PHE,104,CG,ILE,66,CG2,Hydrophobic,3.966
+PHE,104,CD1,ILE,66,CG2,Hydrophobic,3.589
+PHE,104,CE1,ILE,66,CB,Hydrophobic,3.674
+PHE,104,CE1,ILE,66,CG2,Hydrophobic,3.475
+PHE,104,CZ,ILE,66,CB,Hydrophobic,3.795
+PHE,104,CZ,ILE,66,CG2,Hydrophobic,3.753
+TYR,108,CD2,ILE,66,CG1,Hydrophobic,3.736
+TYR,108,CE2,LEU,63,CD1,Hydrophobic,3.62
+PHE,112,CE1,ILE,66,CG1,Hydrophobic,3.767
+PHE,112,CE1,ILE,66,CD1,Hydrophobic,3.67
+VAL,133,CG1,LEU,59,CD2,Hydrophobic,3.489
+VAL,133,CG1,LEU,63,CD2,Hydrophobic,3.936
+TRP,144,CB,MET,74,CE,Hydrophobic,3.879
+PHE,153,CB,LEU,63,CD2,Hydrophobic,3.823
+PHE,153,CG,LEU,63,CD2,Hydrophobic,3.928
+PHE,153,CE1,LEU,59,CD2,Hydrophobic,3.873
+LEU,201,CD2,MET,74,CB,Hydrophobic,3.28
+LEU,201,CD2,MET,74,CG,Hydrophobic,3.879
+PRO,204,CB,ALA,81,CB,Hydrophobic,3.704
+ARG,107,NH1,GLU,69,OE1,Salt bridge,3.212
+ARG,110,NH1,GLU,69,OE1,Salt bridge,3.633
+ARG,110,NH1,GLU,69,OE2,Salt bridge,2.965
+ARG,110,NH2,GLU,69,OE1,Salt bridge,2.694
+ARG,110,NH2,GLU,69,OE2,Salt bridge,3.59
+ARG,139,NH2,GLU,61,OE1,Salt bridge,3.721
+ASP,140,OD1,ARG,64,NH2,Salt bridge,2.528
+ASP,140,OD2,ARG,64,NH2,Salt bridge,3.418
+ARG,146,NH1,ASP,68,OD1,Salt bridge,2.292
+ARG,146,NH1,ASP,68,OD2,Salt bridge,2.899
+GLU,200,OE2,ARG,78,NH2,Salt bridge,2.789
+ARG,107,NH2,ASN,73,ND2,Hydrogen bond,2.933
+ARG,110,NH1,GLU,69,OE2,Hydrogen bond,2.965
+ARG,110,NH2,GLU,69,OE1,Hydrogen bond,2.694
+GLN,118,OE1,LYS,57,O,Hydrogen bond,3.323
+GLN,118,OE1,LEU,59,N,Hydrogen bond,2.897
+GLU,136,O,ARG,64,NE,Hydrogen bond,3.47
+LEU,137,O,ARG,64,NE,Hydrogen bond,3.499
+ARG,139,NE,ARG,64,NH1,Hydrogen bond,2.76
+ASP,140,OD1,ARG,64,NH2,Hydrogen bond,2.528
+ASN,143,OD1,ASP,71,OD2,Hydrogen bond,3.354
+ASN,143,ND2,ASP,68,OD1,Hydrogen bond,3.015
+TRP,144,N,ASP,71,OD2,Hydrogen bond,3.447
+GLY,145,N,ASP,71,OD2,Hydrogen bond,3.441
+ARG,146,NH1,ASP,68,OD2,Hydrogen bond,2.899
+ARG,146,NH2,ARG,64,NE,Hydrogen bond,3.332
+ARG,146,NH2,ARG,64,NH2,Hydrogen bond,2.879
+GLU,200,OE2,ARG,78,NH2,Hydrogen bond,2.789
